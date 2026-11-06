@@ -26,14 +26,11 @@
 
 ```text
 radar-licitacoes/
-├── servidor_web.py            # Servidor HTTP multi-thread + API REST + Cache + Integração PNCP/BrasilAPI
+├── servidor_web.py            # Servidor HTTP multi-thread + API REST + Motor de CNAEs + PNCP/Compras.gov/BrasilAPI
 ├── site/
 │   └── index.html             # Portal Institucional (5 abas: Editais, Fornecedores, Manual, Cartilha LC 123 e Institucional)
-├── radar.ps1                  # Script CLI em PowerShell para geração offline de relatórios HTML/CSV/TXT
 ├── ABRIR-SITE.bat             # Inicializador rápido do servidor web no Windows
-├── RODAR-RAPIDO.bat           # Execução rápida via linha de comando (SJP)
-├── RODAR-RADAR.bat            # Execução completa (Região Metropolitana de Curitiba)
-└── README.md                  # Documentação técnica
+└── README.md                  # Documentação técnica (PT-BR / EN)
 ```
 
 ---

@@ -1,7 +1,12 @@
-# Ignorar caches temporários e relatórios locais gerados em execução
-saida/cache_web/
+# Ignorar caches temporários, relatórios locais e scripts legados de protótipo
+saida/
 cache/
 __pycache__/
 *.pyc
+LEIA-ME.md
+guia-licitacao-simples.html
+radar.ps1
+RODAR-RADAR.bat
+RODAR-RAPIDO.bat
 .DS_Store
 Thumbs.db
