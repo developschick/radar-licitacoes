@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal de Compras Públicas e Fomento ao MEI/EPP — Painel de Monitoramento</title>
+  <style>
+    :root {
+      --gov-navy: #071d41;
+      --gov-blue: #1351b4;
+      --gov-blue-hover: #0c326f;
+      --gov-blue-light: #edf5ff;
+      --gov-green: #168821;
+      --gov-green-bg: #e3f5e1;
+      --gov-amber: #b45309;
+      --gov-amber-bg: #fef3c7;
+      --gov-red: #b91c1c;
+      --gov-red-bg: #fee2e2;
+      --gov-gray-900: #1e293b;
+      --gov-gray-700: #334155;
+      --gov-gray-500: #64748b;
+      --gov-gray-200: #e2e8f0;
+      --gov-gray-100: #f1f5f9;
+      --gov-bg: #f8fafc;
+      --white: #ffffff;
+    }
+
+    html {
+      font-size: 100%;
+    }
+
+    body.high-contrast {
+      --gov-navy: #000000;
+      --gov-blue: #ffea00;
+      --gov-blue-hover: #ffd000;
+      --gov-blue-light: #161b26;
+      --gov-green: #4ade80;
+      --gov-green-bg: #052e16;
+      --gov-amber: #fbbf24;
+      --gov-amber-bg: #3b2506;
+      --gov-red: #f87171;
+      --gov-red-bg: #450a0a;
+      --gov-bg: #000000;
+      --white: #0b0f19;
+      --gov-gray-900: #ffffff;
+      --gov-gray-700: #f1f5f9;
+      --gov-gray-500: #cbd5e1;
+      --gov-gray-200: #475569;
+      --gov-gray-100: #161f30;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Rawline", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--gov-bg);
+      color: var(--gov-gray-900);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* BARRA DE TOPO INSTITUCIONAL (PADRÃO GOV / TRANSPARÊNCIA) */
+    .gov-topbar {
+      background: var(--gov-navy);
+      color: #cbd5e1;
+      font-size: 0.78rem;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    body.high-contrast .gov-topbar {
+      border-bottom: 1px solid var(--gov-blue);
+    }
+    .gov-topbar-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 6px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .gov-topbar-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .gov-topbar-links span,
+    .gov-topbar-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 0.75rem;
+    }
+    .gov-topbar-links a:hover {
+      text-decoration: underline;
+      color: #ffffff;
+    }
+    .a11y-btn {
+      color: #ffffff;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 2px 8px;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .a11y-btn:hover {
+      background: rgba(255,255,255,0.22);
+      border-color: #ffffff;
+    }
+    body.high-contrast .a11y-btn {
+      color: var(--gov-blue);
+      border-color: var(--gov-blue);
+      background: #000000;
+    }
+    .a11y-indicator {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      min-width: 36px;
+      text-align: center;
+      font-weight: 600;
+    }
+    body.high-contrast .a11y-indicator {
+      color: var(--gov-blue);
+    }
+
+    /* CABEÇALHO PRINCIPAL INSTITUCIONAL */
+    .gov-header {
+      background: var(--white);
+      border-bottom: 3px solid var(--gov-blue);
+      box-shadow: 0 2px 6px rgba(7, 29, 65, 0.06);
+    }
+    .gov-header-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .inst-identity {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+    }
+    .inst-emblem {
+      width: 46px;
+      height: 46px;
+      background: var(--gov-navy);
+      border-left: 5px solid var(--gov-blue);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+    body.high-contrast .inst-emblem {
+      border: 1px solid var(--gov-blue);
+      border-left: 5px solid var(--gov-blue);
+      color: var(--gov-blue);
+    }
+    .inst-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .inst-kicker {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--gov-blue);
+    }
+    .inst-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gov-navy);
+      margin: 1px 0;
+      letter-spacing: -0.2px;
+    }
+    body.high-contrast .inst-title { color: #ffffff; }
+    .inst-subtitle {
+      font-size: 0.82rem;
+      color: var(--gov-gray-500);
+    }
+
+    /* NAVEGAÇÃO PRINCIPAL */
+    .gov-nav {
+      background: var(--gov-gray-100);
+      border-bottom: 1px solid var(--gov-gray-200);
+    }
+    .gov-nav-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+    }
+    .nav-tab {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 13px 18px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gov-gray-700);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .nav-tab:hover {
+      color: var(--gov-blue);
+      background: rgba(19, 81, 180, 0.04);
+    }
+    .nav-tab.active {
+      color: var(--gov-blue);
+      border-bottom-color: var(--gov-blue);
+      background: var(--white);
+      font-weight: 700;
+    }
+
+    /* CONTAINER PRINCIPAL */
+    main {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 24px 20px 64px;
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      font-size: 0.78rem;
+      color: var(--gov-gray-500);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .breadcrumb strong { color: var(--gov-gray-700); }
+
+    /* PAINEL DE FILTROS E CONSULTA */
+    .panel-box {
+      background: var(--white);
+      border: 1px solid var(--gov-gray-200);
+      border-top: 3px solid var(--gov-navy);
+      border-radius: 4px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    body.high-contrast .panel-box {
+      border-top-color: var(--gov-blue);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--gov-gray-200);
+    }
+    .panel-header h2 {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--gov-navy);
+    }
+    body.high-contrast .panel-header h2 { color: #ffffff; }
+    .panel-header p {
+      margin: 4px 0 0;
+      font-size: 0.85rem;
+      color: var(--gov-gray-500);
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gov-gray-700);
+      margin-bottom: 8px;
+    }
+
+    /* SELETOR DE SEGMENTO (SEM EMOJIS - ESTILO INSTITUCIONAL) */
+    .segment-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .segment-btn {
+      padding: 7px 13px;
+      border: 1px solid var(--gov-gray-200);
+      background: var(--gov-gray-100);
+      color: var(--gov-gray-700);
+      border-radius: 3px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.12s;
+      font-family: inherit;
+    }
+    .segment-btn:hover {
+      border-color: var(--gov-blue);
+      color: var(--gov-blue);
+      background: var(--gov-blue-light);
+    }
+    .segment-btn.active {
+      background: var(--gov-blue);
+      color: #ffffff;
+      border-color: var(--gov-blue);
+    }
+    body.high-contrast .segment-btn.active {
+      color: #000000;
+      font-weight: 700;
+    }
+
+    /* BARRA DE PESQUISA E CONTROLES */
+    .search-controls {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+    }
+    @media (max-width: 820px) {
+      .search-controls { grid-template-columns: 1fr; }
+    }
+    .search-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-input-wrap input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      border: 1px solid var(--gov-gray-200);
+      border-radius: 3px;
+      background: var(--white);
+      color: var(--gov-gray-900);
+      font-family: inherit;
+    }
+    .search-input-wrap input:focus {
+      outline: 2px solid var(--gov-blue);
+      border-color: var(--gov-blue);
+    }
+
+    .check-filter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 9px 14px;
+      background: var(--gov-green-bg);
+      color: #14532d;
+      border: 1px solid #86efac;
+      border-radius: 3px;
+      cursor: pointer;
+      user-select: none;
+    }
+    body.high-contrast .check-filter {
+      color: var(--gov-green);
+      border-color: var(--gov-green);
+    }
+
+    .btn-gov {
+      background: var(--gov-blue);
+      color: #ffffff;
+      border: 1px solid var(--gov-blue);
+      padding: 9px 16px;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+    }
+    .btn-gov:hover { background: var(--gov-blue-hover); }
+    body.high-contrast .btn-gov {
+      color: #000000;
+      font-weight: 700;
+    }
+    .btn-gov.secondary {
+      background: var(--white);
+      color: var(--gov-blue);
+      border: 1px solid var(--gov-blue);
+    }
+    .btn-gov.secondary:hover { background: var(--gov-blue-light); }
+    body.high-contrast .btn-gov.secondary {
+      color: var(--gov-blue);
+    }
+    .btn-gov.green {
+      background: var(--gov-green);
+      border-color: var(--gov-green);
+      color: #ffffff;
+    }
+    body.high-contrast .btn-gov.green {
+      color: #000000;
+    }
+
+    /* FILTRO DE MUNICÍPIOS */
+    .muni-bar {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--gov-gray-200);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .muni-tag {
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      border: 1px solid var(--gov-gray-200);
+      background: var(--white);
+      color: var(--gov-gray-700);
+      cursor: pointer;
+      user-select: none;
+    }
+    .muni-tag.on {
+      background: var(--gov-navy);
+      border-color: var(--gov-navy);
+      color: #ffffff;
+      font-weight: 600;
+    }
+    body.high-contrast .muni-tag.on {
+      background: var(--gov-blue);
+      border-color: var(--gov-blue);
+      color: #000000;
+      font-weight: 700;
+    }
+
+    /* INDICADORES EXECUTIVOS (KPIs) */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .metric-box {
+      background: var(--white);
+      border: 1px solid var(--gov-gray-200);
+      border-left: 4px solid var(--gov-navy);
+      border-radius: 3px;
+      padding: 14px 18px;
+    }
+    body.high-contrast .metric-box { border-left-color: #ffffff; }
+    .metric-box.green { border-left-color: var(--gov-green); }
+    .metric-box.amber { border-left-color: var(--gov-amber); }
+    .metric-box.blue { border-left-color: var(--gov-blue); }
+    .metric-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--gov-gray-500);
+      display: block;
+    }
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gov-gray-900);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .status-bar {
+      font-size: 0.78rem;
+      color: var(--gov-gray-500);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    /* CARDS DE PROCESSOS LICITATÓRIOS */
+    .proc-card {
+      background: var(--white);
+      border: 1px solid var(--gov-gray-200);
+      border-left: 5px solid #94a3b8;
+      border-radius: 3px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .proc-card.otima { border-left-color: var(--gov-green); }
+    .proc-card.talvez { border-left-color: var(--gov-amber); }
+
+    .proc-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--gov-gray-100);
+    }
+    .tag {
+      padding: 3px 9px;
+      border-radius: 2px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .tag.verde { background: var(--gov-green-bg); color: #14532d; border: 1px solid #86efac; }
+    .tag.amarelo { background: var(--gov-amber-bg); color: #78350f; border: 1px solid #fcd34d; }
+    .tag.cinza { background: var(--gov-gray-100); color: var(--gov-gray-700); border: 1px solid var(--gov-gray-200); }
+    .tag.vermelho { background: var(--gov-red-bg); color: var(--gov-red); border: 1px solid #fca5a5; }
+    .tag.azul { background: var(--gov-blue-light); color: var(--gov-blue); border: 1px solid #bfdbfe; }
+    body.high-contrast .tag.verde { color: var(--gov-green); border-color: var(--gov-green); }
+    body.high-contrast .tag.amarelo { color: var(--gov-amber); border-color: var(--gov-amber); }
+    body.high-contrast .tag.vermelho { color: var(--gov-red); border-color: var(--gov-red); }
+    body.high-contrast .tag.azul { color: var(--gov-blue); border-color: var(--gov-blue); }
+
+    .proc-id {
+      font-size: 0.75rem;
+      color: var(--gov-gray-500);
+      font-family: Consolas, monospace;
+    }
+    .proc-city {
+      margin-left: auto;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gov-navy);
+      text-transform: uppercase;
+    }
+    body.high-contrast .proc-city { color: var(--gov-blue); }
+
+    .proc-title {
+      margin: 6px 0 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gov-gray-900);
+    }
+
+    .proc-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      background: var(--gov-gray-100);
+      padding: 10px 14px;
+      border-radius: 3px;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+    }
+    .proc-meta-item span {
+      display: block;
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      color: var(--gov-gray-500);
+      font-weight: 700;
+    }
+    .proc-meta-item strong {
+      color: var(--gov-gray-900);
+    }
+
+    .proc-summary {
+      background: var(--white);
+      border: 1px solid var(--gov-gray-200);
+      border-radius: 3px;
+      padding: 12px 16px;
+      font-size: 0.91rem;
+      line-height: 1.6;
+      color: var(--gov-gray-700);
+    }
+
+    details.gov-details {
+      margin-top: 10px;
+      border: 1px solid var(--gov-gray-200);
+      border-radius: 3px;
+      background: var(--gov-gray-100);
+      padding: 8px 14px;
+    }
+    details.gov-details summary {
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--gov-blue);
+    }
+    .whats-pre {
+      white-space: pre-wrap;
+      font-family: inherit;
+      font-size: 0.85rem;
+      margin: 10px 0 0;
+      color: var(--gov-gray-900);
+      background: var(--white);
+      padding: 12px;
+      border: 1px solid var(--gov-gray-200);
+    }
+
+    .proc-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* BOTÃO DE INFORMAÇÕES ("i") PARA DESPOLUIR A TELA */
+    .btn-info-toggle {
+      background: var(--gov-blue-light);
+      color: var(--gov-blue);
+      border: 1px solid #bfdbfe;
+      padding: 8px 14px;
+      border-radius: 3px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-info-toggle:hover {
+      background: #dbeafe;
+      border-color: var(--gov-blue);
+    }
+    body.high-contrast .btn-info-toggle {
+      background: #000000;
+      color: var(--gov-blue);
+      border-color: var(--gov-blue);
+    }
+    .icon-i {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: var(--gov-blue);
+      color: #ffffff;
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    body.high-contrast .icon-i {
+      background: var(--gov-blue);
+      color: #000000;
+    }
+
+    .proc-extra-panel {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--gov-gray-200);
+    }
+
+    /* TABELA CORPORATIVA */
+    .gov-table-wrap {
+      background: var(--white);
+      border: 1px solid var(--gov-gray-200);
+      border-radius: 3px;
+      overflow-x: auto;
+    }
+    table.gov-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    table.gov-table th {
+      background: var(--gov-navy);
+      color: #ffffff;
+      text-align: left;
+      padding: 11px 14px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    body.high-contrast table.gov-table th {
+      background: #161f30;
+      color: var(--gov-blue);
+      border-bottom: 2px solid var(--gov-blue);
+    }
+    table.gov-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--gov-gray-200);
+      vertical-align: top;
+    }
+    table.gov-table tr:nth-child(even) td {
+      background: rgba(19, 81, 180, 0.02);
+    }
+    body.high-contrast table.gov-table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* DOCUMENTAÇÃO INSTITUCIONAL (COMO USAR, GUIA, SOBRE) */
+    .doc-box {
+      background: var(--white);
+      border: 1px solid var(--gov-gray-200);
+      border-top: 3px solid var(--gov-blue);
+      border-radius: 3px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .doc-box h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--gov-navy);
+      border-bottom: 1px solid var(--gov-gray-200);
+      padding-bottom: 10px;
+    }
+    body.high-contrast .doc-box h2 { color: #ffffff; }
+    .doc-box h3 {
+      font-size: 1.05rem;
+      color: var(--gov-navy);
+      margin-top: 22px;
+    }
+    body.high-contrast .doc-box h3 { color: var(--gov-blue); }
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .doc-card {
+      border: 1px solid var(--gov-gray-200);
+      border-top: 3px solid var(--gov-navy);
+      padding: 16px;
+      border-radius: 3px;
+      background: var(--gov-bg);
+    }
+    body.high-contrast .doc-card {
+      border-top-color: var(--gov-blue);
+      background: var(--gov-gray-100);
+    }
+    .doc-card h4 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: var(--gov-navy);
+    }
+    body.high-contrast .doc-card h4 { color: var(--gov-blue); }
+    .gov-notice {
+      background: var(--gov-blue-light);
+      border-left: 4px solid var(--gov-blue);
+      padding: 14px 18px;
+      font-size: 0.91rem;
+      margin: 16px 0;
+    }
+    .gov-notice.warn {
+      background: var(--gov-amber-bg);
+      border-left-color: var(--gov-amber);
+      color: #78350f;
+    }
+    body.high-contrast .gov-notice.warn {
+      color: var(--gov-amber);
+    }
+
+    /* RODAPÉ INSTITUCIONAL */
+    .gov-footer {
+      background: var(--gov-navy);
+      color: #cbd5e1;
+      padding: 28px 20px;
+      font-size: 0.82rem;
+      border-top: 4px solid var(--gov-blue);
+    }
+    .gov-footer-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .loader {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gov-gray-500);
+      font-size: 0.95rem;
+      background: var(--white);
+      border: 1px solid var(--gov-gray-200);
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR DE GOVERNO E ACESSIBILIDADE -->
+  <div class="gov-topbar">
+    <div class="gov-topbar-inner">
+      <div>
+        <strong>ADMINISTRAÇÃO PÚBLICA MUNICIPAL</strong> &nbsp;|&nbsp; Sistema de Inteligência e Fomento às Compras Locais (LC nº 123/2006, Lei nº 14.133/2021 e Decreto SJP nº 5.807/2023)
+      </div>
+      <div class="gov-topbar-links">
+        <a href="https://pncp.gov.br" target="_blank" rel="noopener">Portal Nacional de Contratações Públicas (PNCP)</a>
+        <span>|</span>
+        <button class="a11y-btn" title="Diminuir tamanho da fonte" onclick="ajustarFonte(-10)">A-</button>
+        <button class="a11y-btn" title="Tamanho padrão da fonte (100%)" onclick="resetarFonte()">A&deg;</button>
+        <button class="a11y-btn" title="Aumentar tamanho da fonte" onclick="ajustarFonte(10)">A+</button>
+        <span class="a11y-indicator" id="indicador-fonte">100%</span>
+        <button class="a11y-btn" id="btn-contraste" onclick="alternarContraste()">Alto Contraste</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CABEÇALHO INSTITUCIONAL -->
+  <header class="gov-header">
+    <div class="gov-header-inner">
+      <div class="inst-identity" onclick="abrirPagina('licitacoes')">
+        <div class="inst-emblem" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>
+          </svg>
+        </div>
+        <div class="inst-title-group">
+          <span class="inst-kicker">Desenvolvimento Econômico e Compras Públicas</span>
+          <span class="inst-title">Portal de Oportunidades Licitatórias — MEI, ME e EPP</span>
+          <span class="inst-subtitle">Monitoramento Integrado ao PNCP · São José dos Pinhais e Região Metropolitana de Curitiba</span>
+        </div>
+      </div>
+      <div>
+        <button class="btn-gov secondary" onclick="carregarLicitacoes(true)">Sincronizar Dados PNCP</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MENU DE NAVEGAÇÃO INSTITUCIONAL -->
+  <nav class="gov-nav">
+    <div class="gov-nav-inner">
+      <button class="nav-tab active" id="nav-licitacoes" onclick="abrirPagina('licitacoes')">Editais e Contratações Abertas</button>
+      <button class="nav-tab" id="nav-empresas" onclick="abrirPagina('empresas')">Cadastro de Fornecedores Locais (MEI/EPP)</button>
+      <button class="nav-tab" id="nav-como-usar" onclick="abrirPagina('como-usar')">Manual de Utilização do Sistema</button>
+      <button class="nav-tab" id="nav-guia" onclick="abrirPagina('guia')">Cartilha do Microempreendedor (LC 123/2006)</button>
+      <button class="nav-tab" id="nav-sobre" onclick="abrirPagina('sobre')">Institucional e Objetivos do Programa</button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- =========================================================
+         ABA 1: EDITAIS E CONTRATAÇÕES ABERTAS
+         ========================================================= -->
+    <div id="page-licitacoes">
+
+      <div class="breadcrumb">
+        <span>Início</span> &rsaquo; <span>Compras Públicas</span> &rsaquo; <strong>Painel de Oportunidades para Micro e Pequenas Empresas</strong>
+      </div>
+
+      <div class="panel-box">
+        <div class="panel-header" style="margin-bottom:12px;padding-bottom:10px;">
+          <div>
+            <h2>Oportunidades Abertas por Área de Atuação</h2>
+          </div>
+          <button type="button" class="btn-info-toggle" style="padding:5px 11px;font-size:0.78rem;" onclick="togglePainel('dica-filtro')">
+            <span class="icon-i">i</span> Como filtrar e escolher cidades
+          </button>
+        </div>
+
+        <div id="dica-filtro" class="gov-notice hidden" style="margin-top:0;margin-bottom:14px;">
+          Clique em um <strong>segmento econômico</strong> abaixo ou digite o que você vende na barra de busca. Você também pode alternar os municípios monitorados clicando em <em>Alterar Municípios</em>.
+        </div>
+
+        <div class="segment-grid" id="nicho-chips" style="margin-bottom:14px;">
+          <button class="segment-btn active" data-nicho="todos" onclick="selecionarNicho('todos', this)">Todas as Áreas</button>
+          <button class="segment-btn" data-nicho="alimentacao" onclick="selecionarNicho('alimentacao', this)">Alimentação</button>
+          <button class="segment-btn" data-nicho="limpeza" onclick="selecionarNicho('limpeza', this)">Limpeza e Pragas</button>
+          <button class="segment-btn" data-nicho="obras" onclick="selecionarNicho('obras', this)">Obras e Manutenção</button>
+          <button class="segment-btn" data-nicho="ti" onclick="selecionarNicho('ti', this)">Informática e TI</button>
+          <button class="segment-btn" data-nicho="saude" onclick="selecionarNicho('saude', this)">Saúde e Laboratório</button>
+          <button class="segment-btn" data-nicho="veiculos" onclick="selecionarNicho('veiculos', this)">Veículos e Peças</button>
+          <button class="segment-btn" data-nicho="escritorio" onclick="selecionarNicho('escritorio', this)">Papelaria e Móveis</button>
+          <button class="segment-btn" data-nicho="uniformes" onclick="selecionarNicho('uniformes', this)">Uniformes e EPI</button>
+          <button class="segment-btn" data-nicho="eventos" onclick="selecionarNicho('eventos', this)">Eventos e Locação</button>
+          <button class="segment-btn" data-nicho="agro" onclick="selecionarNicho('agro', this)">Agro e Jardinagem</button>
+        </div>
+
+        <div class="search-controls">
+          <div class="search-input-wrap">
+            <input type="text" id="input-busca" placeholder="Pesquisar produto ou serviço (ex.: manutenção, laboratório, informática, peça)..." oninput="aplicarFiltrosLocais()">
+          </div>
+          <label class="check-filter">
+            <input type="checkbox" id="chk-pequenos" onchange="aplicarFiltrosLocais()">
+            Apenas Favoráveis a MEI / EPP
+          </label>
+          <button type="button" class="btn-gov secondary" onclick="togglePainel('bar-municipios')">Municípios &#9662;</button>
+        </div>
+
+        <div class="muni-bar hidden" id="bar-municipios">
+          <span style="font-weight:700;font-size:0.75rem;text-transform:uppercase;color:var(--gov-gray-700);margin-right:4px;">Municípios Abrangidos:</span>
+          <span class="muni-tag on" data-ibge="4125506" onclick="toggleCidade(this)">São José dos Pinhais</span>
+          <span class="muni-tag" data-ibge="4106902" onclick="toggleCidade(this)">Curitiba</span>
+          <span class="muni-tag" data-ibge="4119152" onclick="toggleCidade(this)">Pinhais</span>
+          <span class="muni-tag" data-ibge="4101804" onclick="toggleCidade(this)">Araucária</span>
+          <span class="muni-tag" data-ibge="4105805" onclick="toggleCidade(this)">Colombo</span>
+          <span class="muni-tag" data-ibge="4107652" onclick="toggleCidade(this)">Fazenda Rio Grande</span>
+          <span class="muni-tag" data-ibge="4104204" onclick="toggleCidade(this)">Campo Largo</span>
+          <span class="muni-tag" data-ibge="4119509" onclick="toggleCidade(this)">Piraquara</span>
+          <button class="btn-gov secondary" style="margin-left:auto;padding:5px 11px;font-size:0.75rem;" onclick="selecionarTodasCidades()">Selecionar Região Metropolitana Completa</button>
+        </div>
+      </div>
+
+      <!-- INDICADORES EXECUTIVOS -->
+      <div class="metrics-row">
+        <div class="metric-box">
+          <span class="metric-label">Processos Localizados</span>
+          <span class="metric-value" id="kpi-total">-</span>
+        </div>
+        <div class="metric-box green">
+          <span class="metric-label">Prioritários / Exclusivos MEI e EPP</span>
+          <span class="metric-value" style="color:var(--gov-green)" id="kpi-otimas">-</span>
+        </div>
+        <div class="metric-box amber">
+          <span class="metric-label">Médio Porte / Participação Viável</span>
+          <span class="metric-value" style="color:var(--gov-amber)" id="kpi-talvez">-</span>
+        </div>
+        <div class="metric-box blue">
+          <span class="metric-label">Volume Financeiro Estimado</span>
+          <span class="metric-value" style="color:var(--gov-blue)" id="kpi-valor">-</span>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <span id="status-velocidade">Fonte Oficial: Base de Dados Aberta do Portal Nacional de Contratações Públicas (PNCP).</span>
+        <span>Classificação automática conforme Art. 47 e 48 da LC nº 123/2006 e Decreto SJP nº 5.807/2023.</span>
+      </div>
+
+      <div id="lista-licitacoes"></div>
+
+    </div>
+
+    <!-- =========================================================
+         ABA 2: CADASTRO DE FORNECEDORES LOCAIS (MEI / ME / EPP)
+         ========================================================= -->
+    <div id="page-empresas" class="hidden">
+      <div class="breadcrumb">
+        <span>Início</span> &rsaquo; <span>Inteligência de Mercado</span> &rsaquo; <strong>Cadastro de Fornecedores MEI, EPP e ME</strong>
+      </div>
+
+      <div class="panel-box">
+        <div class="panel-header" style="margin-bottom:12px;padding-bottom:10px;">
+          <div>
+            <h2>Base Regional de Fornecedores para Abordagem e Oferta de Demandas</h2>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button type="button" class="btn-info-toggle" style="padding:5px 11px;font-size:0.78rem;" onclick="togglePainel('dica-forn')">
+              <span class="icon-i">i</span> Como funciona esta base
+            </button>
+            <button class="btn-gov" style="padding:6px 12px;font-size:0.8rem;" onclick="carregarEmpresas()">Sincronizar Fornecedores</button>
+          </div>
+        </div>
+
+        <div id="dica-forn" class="gov-notice hidden" style="margin-top:0;margin-bottom:14px;">
+          Esta base reúne Microempreendedores Individuais (<strong>MEI</strong>), Empresas de Pequeno Porte (<strong>EPP</strong>) e Microempresas (<strong>ME</strong>) mapeadas em contratos públicos de São José dos Pinhais, Curitiba e Região Metropolitana, validadas na Receita Federal com telefone/WhatsApp e histórico de produtos fornecidos.
+        </div>
+
+        <div class="segment-grid" id="nicho-emp-chips" style="margin-bottom:14px;">
+          <button class="segment-btn active" data-nicho="todos" onclick="selecionarNichoEmp('todos', this)">Todas as Áreas</button>
+          <button class="segment-btn" data-nicho="alimentacao" onclick="selecionarNichoEmp('alimentacao', this)">Alimentação</button>
+          <button class="segment-btn" data-nicho="limpeza" onclick="selecionarNichoEmp('limpeza', this)">Limpeza e Pragas</button>
+          <button class="segment-btn" data-nicho="obras" onclick="selecionarNichoEmp('obras', this)">Obras e Manutenção</button>
+          <button class="segment-btn" data-nicho="ti" onclick="selecionarNichoEmp('ti', this)">Informática e TI</button>
+          <button class="segment-btn" data-nicho="saude" onclick="selecionarNichoEmp('saude', this)">Saúde e Laboratório</button>
+          <button class="segment-btn" data-nicho="veiculos" onclick="selecionarNichoEmp('veiculos', this)">Veículos e Peças</button>
+          <button class="segment-btn" data-nicho="escritorio" onclick="selecionarNichoEmp('escritorio', this)">Papelaria e Móveis</button>
+          <button class="segment-btn" data-nicho="uniformes" onclick="selecionarNichoEmp('uniformes', this)">Uniformes e EPI</button>
+          <button class="segment-btn" data-nicho="eventos" onclick="selecionarNichoEmp('eventos', this)">Eventos e Locação</button>
+          <button class="segment-btn" data-nicho="agro" onclick="selecionarNichoEmp('agro', this)">Agro e Jardinagem</button>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <div class="search-input-wrap" style="flex:1;min-width:260px;">
+            <input type="text" id="input-busca-emp" placeholder="Pesquisar por Razão Social, CNPJ, CNAE, Município ou Produto fornecido..." oninput="renderizarEmpresas()">
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <span style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--gov-gray-700);">Porte:</span>
+            <label class="check-filter" style="padding:8px 12px;background:var(--gov-blue-light);color:var(--gov-blue);border-color:#bfdbfe;">
+              <input type="checkbox" id="chk-porte-mei" checked onchange="renderizarEmpresas()">
+              <strong>MEI</strong>
+            </label>
+            <label class="check-filter" style="padding:8px 12px;">
+              <input type="checkbox" id="chk-porte-epp" checked onchange="renderizarEmpresas()">
+              <strong>EPP</strong>
+            </label>
+            <label class="check-filter" style="padding:8px 12px;background:var(--gov-amber-bg);color:#78350f;border-color:#fcd34d;">
+              <input type="checkbox" id="chk-porte-me" checked onchange="renderizarEmpresas()">
+              <strong>ME</strong>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- INDICADORES DA BASE DE FORNECEDORES -->
+      <div class="metrics-row">
+        <div class="metric-box">
+          <span class="metric-label">Fornecedores Exibidos</span>
+          <span class="metric-value" id="kpi-emp-total">-</span>
+        </div>
+        <div class="metric-box blue">
+          <span class="metric-label">MEI (Microempreendedor Individual)</span>
+          <span class="metric-value" style="color:var(--gov-blue)" id="kpi-emp-mei">-</span>
+        </div>
+        <div class="metric-box green">
+          <span class="metric-label">EPP (Empresa de Pequeno Porte)</span>
+          <span class="metric-value" style="color:var(--gov-green)" id="kpi-emp-epp">-</span>
+        </div>
+        <div class="metric-box amber">
+          <span class="metric-label">ME (Microempresa)</span>
+          <span class="metric-value" style="color:var(--gov-amber)" id="kpi-emp-me">-</span>
+        </div>
+      </div>
+
+      <div id="lista-empresas"></div>
+    </div>
+
+    <!-- =========================================================
+         ABA 3: MANUAL DE UTILIZAÇÃO DO SISTEMA
+         ========================================================= -->
+    <div id="page-como-usar" class="hidden">
+      <div class="breadcrumb">
+        <span>Início</span> &rsaquo; <span>Documentação</span> &rsaquo; <strong>Manual de Utilização do Sistema</strong>
+      </div>
+
+      <div class="doc-box">
+        <h2>Manual de Operação — Sistema de Monitoramento e Fomento Licitatório</h2>
+        <p>Este painel foi desenvolvido para atender tanto o <strong>corpo técnico municipal (Salas do Empreendedor, Secretarias de Desenvolvimento Econômico e Compras)</strong> quanto o <strong>microempreendedor local</strong> que deseja fornecer bens e serviços ao Poder Público.</p>
+
+        <div class="doc-grid">
+          <div class="doc-card">
+            <h4>1. Filtro por Segmento Econômico</h4>
+            <p>Na tela inicial, selecione o setor de atividade da empresa ou utilize o campo de busca textual para localizar editais específicos (ex.: manutenção predial, insumos laboratoriais, gêneros alimentícios).</p>
+          </div>
+          <div class="doc-card">
+            <h4>2. Triagem de Enquadramento LC 123/2006</h4>
+            <p>O sistema analisa automaticamente os itens de cada processo no PNCP, destacando com a etiqueta <strong>PRIORITÁRIO MEI/ME/EPP</strong> aqueles com participação exclusiva até R$ 80.000,00, cotas reservadas ou dispensas eletrônicas.</p>
+          </div>
+          <div class="doc-card">
+            <h4>3. Leitura Simplificada do Objeto</h4>
+            <p>Cada processo apresenta um quadro-resumo traduzindo as informações essenciais do edital: órgão contratante, valor máximo estimado, data-limite para cadastro de proposta, modalidade, critério de julgamento e forma de entrega.</p>
+          </div>
+          <div class="doc-card">
+            <h4>4. Emissão de Informativo Oficial</h4>
+            <p>O botão <strong>Copiar Informativo para Atendimento (WhatsApp)</strong> gera um comunicado padronizado e explicativo, pronto para ser encaminhado pela Sala do Empreendedor ou consultoria às empresas cadastradas do ramo.</p>
+          </div>
+        </div>
+
+        <div class="gov-notice">
+          <strong>Uso Institucional pelas Salas do Empreendedor:</strong> A aba <em>Cadastro de Fornecedores Locais (MEI/EPP)</em> permite identificar proativamente pequenas empresas que já possuem aptidão comprovada em contratos públicos e notificá-las sobre novas licitações correlatas abertas no município.
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         ABA 4: CARTILHA DO MICROEMPREENDEDOR (LC 123/2006)
+         ========================================================= -->
+    <div id="page-guia" class="hidden">
+      <div class="breadcrumb">
+        <span>Início</span> &rsaquo; <span>Capacitação</span> &rsaquo; <strong>Cartilha de Compras Públicas para MEI, ME e EPP</strong>
+      </div>
+
+      <div class="doc-box">
+        <h2>Guia Orientativo de Participação em Licitações Municipais (Lei Complementar nº 123/2006)</h2>
+        <p>A legislação federal, estadual (Paraná) e municipal (São José dos Pinhais) estabelece tratamento diferenciado, simplificado e favorecido para que Microempreendedores Individuais (MEI), Microempresas (ME) e Empresas de Pequeno Porte (EPP) vendam produtos e serviços para prefeituras e órgãos públicos.</p>
+
+        <div class="gov-notice">
+          <strong>Benefício Legal Direto (Art. 48 da LC 123/2006 e Prejulgado nº 27 do TCE-PR):</strong> Nos processos licitatórios, os itens ou lotes de contratação cujo valor seja de até <strong>R$ 80.000,00 (oitenta mil reais)</strong> são destinados <strong>exclusivamente</strong> à participação de MEI, ME e EPP, podendo haver ainda margem de preferência de até 10% para micro e pequenas empresas sediadas local ou regionalmente.
+        </div>
+
+        <h3>1. Glossário Técnico Simplificado</h3>
+        <div class="gov-table-wrap">
+          <table class="gov-table">
+            <thead>
+              <tr><th style="width:30%">Termo Administrativo</th><th>Significado Prático para o Fornecedor</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Edital e Termo de Referência</strong></td><td>Documento oficial que disciplina a compra. O Termo de Referência detalha as especificações técnicas do produto/serviço, prazos e locais de entrega.</td></tr>
+              <tr><td><strong>Pregão Eletrônico</strong></td><td>Modalidade realizada integralmente pela internet para aquisição de bens e serviços comuns. A disputa ocorre por lances sucessivos em sessão pública virtual.</td></tr>
+              <tr><td><strong>Dispensa Eletrônica</strong></td><td>Contratação direta simplificada para compras de menor valor (Art. 75 da Lei nº 14.133/2021). Representa a via de ingresso mais célere para o pequeno fornecedor.</td></tr>
+              <tr><td><strong>Sistema de Registro de Preços (SRP)</strong></td><td>Procedimento em que a Administração registra o preço ofertado pelo vencedor em uma Ata válida por até 12 meses, realizando aquisições parceladas conforme a demanda real.</td></tr>
+              <tr><td><strong>Cota Reservada (até 25%)</strong></td><td>Em aquisições de bens divisíveis de grande vulto, o órgão público reserva até 25% do quantitativo total para disputa exclusiva entre micro e pequenas empresas.</td></tr>
+              <tr><td><strong>Empate Ficto (Preferência de até 5%)</strong></td><td>Em disputas amplas, caso a proposta de uma MEI/ME/EPP seja até 5% superior ao menor preço de uma grande empresa (no Pregão), a pequena empresa tem o direito legal de cobrir a oferta e vencer o item.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>2. Documentação Básica de Regularidade (Emissão Gratuita)</h3>
+        <ul>
+          <li><strong>Comprovante de Inscrição de CNPJ e CCMEI / Contrato Social:</strong> Com código de atividade econômica (CNAE) compatível com o objeto da licitação.</li>
+          <li><strong>Certidão Negativa de Débitos Federais e Dívida Ativa da União:</strong> Emitida conjuntamente pela Receita Federal e PGFN.</li>
+          <li><strong>Certidão de Regularidade Fiscal Estadual e Municipal:</strong> Emitidas pela Secretaria da Fazenda Estadual (SEFA/PR) e pela Prefeitura sede da empresa.</li>
+          <li><strong>Certidão Negativa de Débitos Trabalhistas (CNDT) e Regularidade do FGTS (CRF):</strong> Emitidas gratuitamente nos portais do TST e da Caixa Econômica Federal.</li>
+          <li><strong>Declaração de Enquadramento ME/EPP e Limite Anual (Art. 4º, § 2º da Lei 14.133/2021):</strong> Declaração eletrônica no sistema de compras de que a empresa não extrapolou, no ano-calendário, o teto de R$ 4.800.000,00 em contratos com a Administração Pública.</li>
+        </ul>
+
+        <div class="gov-notice warn">
+          <strong>Prazo Legal para Regularização Fiscal Tardia (Art. 43 da LC 123/2006):</strong> Caso o MEI, ME ou EPP apresente alguma restrição em suas certidões fiscais ou trabalhistas no momento da disputa, a lei assegura o prazo de <strong>5 (cinco) dias úteis</strong> — prorrogável por igual período — após ser declarado vencedor para regularizar a documentação e emitir a certidão positiva com efeitos de negativa, sem perda do direito à contratação.
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         ABA 5: INSTITUCIONAL E OBJETIVOS DO PROGRAMA
+         ========================================================= -->
+    <div id="page-sobre" class="hidden">
+      <div class="breadcrumb">
+        <span>Início</span> &rsaquo; <span>Institucional</span> &rsaquo; <strong>Sobre o Sistema, Diretrizes e Conformidade Legal</strong>
+      </div>
+
+      <div class="doc-box">
+        <h2>Diretrizes Institucionais — Programa de Acesso ao Mercado Público Municipal</h2>
+        <p>O <strong>Portal de Oportunidades Licitatórias</strong> constitui uma ferramenta tecnológica de transparência ativa e inteligência de dados voltada ao fortalecimento da economia local por meio das compras governamentais em <strong>São José dos Pinhais</strong> e nos municípios da <strong>Região Metropolitana de Curitiba</strong>.</p>
+
+        <h3>1. Diagnóstico e Justificativa Pública</h3>
+        <p>Embora a Lei Complementar nº 123/2006 e a Nova Lei de Licitações (Lei nº 14.133/2021) estabeleçam instrumentos claros de fomento aos pequenos negócios, observa-se historicamente baixa adesão de microempreendedores locais aos certames municipais em razão de três barreiras estruturais:</p>
+        <ul>
+          <li>Dispersão das informações de compras públicas em múltiplos sistemas técnicos de difícil consulta pelo pequeno empresário;</li>
+          <li>Complexidade terminológica dos editais e anexos técnicos, que desestimula a participação de empresas sem assessoria jurídica dedicada;</li>
+          <li>Ausência de mecanismos automatizados que cruzem a demanda aberta pelo município com a vocação econômica dos fornecedores locais.</li>
+        </ul>
+
+        <h3>2. Benefícios para a Administração Pública e para o Município</h3>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <h4>Ampliação da Competitividade e Economia aos Cofres Públicos (Erário)</h4>
+            <p>Com mais fornecedores locais informados e aptos a disputar os pregões e dispensas, o município reduz o índice de itens desertos ou fracassados e obtém propostas financeiramente mais vantajosas para os cofres públicos.</p>
+          </div>
+          <div class="doc-card">
+            <h4>Retenção de Renda e Emprego no Município</h4>
+            <p>A contratação de MEIs, MEs e EPPs sediadas na própria cidade ou região mantém os recursos orçamentários circulando no comércio e no setor de serviços local, gerando arrecadação e postos de trabalho.</p>
+          </div>
+          <div class="doc-card">
+            <h4>Eficiência no Atendimento da Sala do Empreendedor</h4>
+            <p>Automatiza o trabalho de triagem dos agentes de desenvolvimento, permitindo orientar cada empresário com informações precisas e comunicados padronizados em segundos.</p>
+          </div>
+          <div class="doc-card">
+            <h4>Transparência Ativa e Conformidade Legal</h4>
+            <p>Opera 100% integrado às APIs públicas oficiais do Portal Nacional de Contratações Públicas (PNCP), em total aderência à Lei de Acesso à Informação e à LGPD.</p>
+          </div>
+        </div>
+
+        <h3>3. Arcabouço Jurídico e Conformidade Legal (Federal, Paraná e São José dos Pinhais)</h3>
+        <div class="gov-table-wrap">
+          <table class="gov-table">
+            <thead>
+              <tr><th style="width:32%">Norma / Jurisprudência</th><th>Aplicação e Conformidade no Sistema</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Lei Federal nº 14.133/2021</strong><br><small>(Nova Lei de Licitações — Arts. 4º, 75 e 174)</small></td>
+                <td>Institui o PNCP como base oficial obrigatória de divulgação centralizada e assegura nas contratações públicas o tratamento favorecido às MEIs, MEs e EPPs, observado o teto anual de enquadramento (Art. 4º, § 2º).</td>
+              </tr>
+              <tr>
+                <td><strong>Lei Complementar Federal nº 123/2006</strong><br><small>(Estatuto Nacional da ME e EPP — Arts. 42 a 49)</small></td>
+                <td>Determina que a Administração Pública promova o desenvolvimento econômico local e regional (Art. 47), com licitações exclusivas até R$ 80.000,00, cotas reservadas de até 25% e prazo suplementar de regularização fiscal (Art. 43).</td>
+              </tr>
+              <tr>
+                <td><strong>Legislação do Estado do Paraná</strong><br><small>LC Estadual nº 163/2013, Decreto Estadual nº 10.086/2022 e Prejulgado nº 27 do TCE-PR</small></td>
+                <td>O Estatuto Estadual da MPE (LC 163/2013) e o Prejulgado nº 27 do Tribunal de Contas do Estado do Paraná legitimam políticas públicas de divulgação ativa dos avisos de licitação e fomento à participação de fornecedores locais e regionais.</td>
+              </tr>
+              <tr>
+                <td><strong>Legislação de São José dos Pinhais</strong><br><small>LC Municipal nº 55/2010 e Decreto Municipal nº 5.807/2023</small></td>
+                <td>Regulamenta a Lei Geral Municipal da Micro e Pequena Empresa e a aplicação da Lei nº 14.133/2021 na Administração Municipal (SERMALI e Secretarias), incentivando a capacitação e o cadastro de fornecedores locais.</td>
+              </tr>
+              <tr>
+                <td><strong>LAI (Lei nº 12.527/2011) e LGPD (Lei nº 13.709/2018)</strong><br><small>Transparência Ativa e Dados Abertos</small></td>
+                <td>Todos os dados exibidos provêm exclusivamente de bases governamentais abertas (API PNCP e dados cadastrais públicos de Pessoas Jurídicas na Receita Federal), cumprindo o dever de transparência ativa (Art. 8º da LAI) sem tratamento de dados pessoais sensíveis.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="gov-notice">
+          <strong>Nota de Governança e Isonomia (Art. 5º da Lei nº 14.133/2021):</strong> Os resumos e comunicados gerados por este painel possuem caráter estritamente informativo e de fomento público, baseados em editais já publicados oficialmente. Não substituem a leitura integral do Edital e do Termo de Referência no PNCP, que prevalecem para todos os efeitos legais.
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ INSTITUCIONAL -->
+  <footer class="gov-footer">
+    <div class="gov-footer-inner">
+      <div>
+        <strong>SISTEMA DE INTELIGÊNCIA E FOMENTO ÀS COMPRAS PÚBLICAS LOCAIS</strong><br>
+        Em conformidade com a Lei Federal nº 14.133/2021, LC nº 123/2006, LC Estadual PR nº 163/2013, Prejulgado nº 27 TCE-PR e Decreto Municipal SJP nº 5.807/2023.
+      </div>
+      <div>
+        Atendimento e Orientação Empresarial:<br>
+        <strong>Sala do Empreendedor / Secretaria Municipal de Indústria, Comércio e Serviços</strong> · Sebrae (0800 570 0800)
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let todasLicitacoes = [];
+    let todasEmpresas = [];
+    let nichoAtual = 'todos';
+    let escalaFonte = 100;
+
+    function ajustarFonte(deltaPercent) {
+      escalaFonte = Math.min(140, Math.max(80, escalaFonte + deltaPercent));
+      document.documentElement.style.fontSize = escalaFonte + '%';
+      const ind = document.getElementById('indicador-fonte');
+      if (ind) ind.textContent = escalaFonte + '%';
+    }
+
+    function resetarFonte() {
+      escalaFonte = 100;
+      document.documentElement.style.fontSize = '100%';
+      const ind = document.getElementById('indicador-fonte');
+      if (ind) ind.textContent = '100%';
+    }
+
+    function alternarContraste() {
+      const ativo = document.body.classList.toggle('high-contrast');
+      const btn = document.getElementById('btn-contraste');
+      if (btn) btn.textContent = ativo ? 'Contraste Padrão' : 'Alto Contraste';
+    }
+
+    function abrirPagina(id) {
+      ['licitacoes', 'empresas', 'como-usar', 'guia', 'sobre'].forEach(p => {
+        document.getElementById('page-' + p).classList.toggle('hidden', p !== id);
+        document.getElementById('nav-' + p).classList.toggle('active', p === id);
+      });
+      if (id === 'empresas' && todasEmpresas.length === 0) {
+        carregarEmpresas();
+      }
+    }
+
+    function obterCidadesSelecionadas() {
+      const pills = Array.from(document.querySelectorAll('.muni-tag.on'));
+      if (pills.length === 0) return ['4125506'];
+      return pills.map(p => p.getAttribute('data-ibge'));
+    }
+
+    function toggleCidade(el) {
+      el.classList.toggle('on');
+      if (document.querySelectorAll('.muni-tag.on').length === 0) {
+        el.classList.add('on');
+      }
+      carregarLicitacoes(false);
+    }
+
+    function selecionarTodasCidades() {
+      document.querySelectorAll('.muni-tag').forEach(p => p.classList.add('on'));
+      carregarLicitacoes(false);
+    }
+
+    function selecionarNicho(nicho, btn) {
+      nichoAtual = nicho;
+      document.querySelectorAll('.segment-btn').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      aplicarFiltrosLocais();
+    }
+
+    function semAcentos(s) {
+      return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+
+    function esc(s) {
+      const d = document.createElement('div');
+      d.textContent = s || '';
+      return d.innerHTML;
+    }
+
+    async function carregarLicitacoes(forcarRefresh) {
+      const cont = document.getElementById('lista-licitacoes');
+      cont.innerHTML = '<div class="loader">Consultando base de dados oficial do Portal Nacional de Contratações Públicas (PNCP)...</div>';
+      const cidades = obterCidadesSelecionadas().join(',');
+      const url = `/api/licitacoes?cidades=${encodeURIComponent(cidades)}&refresh=${forcarRefresh ? '1' : '0'}`;
+      try {
+        const r = await fetch(url);
+        const data = await r.json();
+        todasLicitacoes = data.licitacoes || [];
+        const origem = data.doCache ? 'Base sincronizada em cache local' : `Consulta direta ao PNCP concluída em ${data.tempoSegundos}s`;
+        document.getElementById('status-velocidade').textContent = `${origem} · Total de ${todasLicitacoes.length} processos ativos nos municípios selecionados.`;
+        aplicarFiltrosLocais();
+      } catch (e) {
+        cont.innerHTML = '<div class="doc-box">Não foi possível comunicar com o serviço de dados local. Verifique se o servidor está ativo.</div>';
+      }
+    }
+
+    function aplicarFiltrosLocais() {
+      const q = semAcentos(document.getElementById('input-busca').value).trim();
+      const apenasPeq = document.getElementById('chk-pequenos').checked;
+
+      const filtradas = todasLicitacoes.filter(op => {
+        if (nichoAtual !== 'todos') {
+          const bateNicho = (op.nichos || []).includes(nichoAtual);
+          if (!bateNicho) return false;
+        }
+        if (q) {
+          const palavras = q.split(/\s+/).filter(Boolean);
+          if (!palavras.every(p => (op.textoBusca || '').includes(p))) return false;
+        }
+        if (apenasPeq && op.nivel === 'dificil') return false;
+        return true;
+      });
+
+      const nOtimas = filtradas.filter(x => x.nivel === 'otima').length;
+      const nTalvez = filtradas.filter(x => x.nivel === 'talvez').length;
+      const soma = filtradas.reduce((acc, x) => acc + (Number(x.valor) || 0), 0);
+
+      document.getElementById('kpi-total').textContent = filtradas.length;
+      document.getElementById('kpi-otimas').textContent = nOtimas;
+      document.getElementById('kpi-talvez').textContent = nTalvez;
+      document.getElementById('kpi-valor').textContent = soma >= 1000000
+        ? 'R$ ' + (soma / 1000000).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' mi'
+        : 'R$ ' + soma.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      renderizarCards(filtradas);
+    }
+
+    function renderizarCards(lista) {
+      const cont = document.getElementById('lista-licitacoes');
+      if (lista.length === 0) {
+        cont.innerHTML = `<div class="doc-box" style="text-align:center;">
+          <h3>Nenhum processo licitatório localizado para os parâmetros selecionados</h3>
+          <p>Selecione a opção <b>Todos os Segmentos</b>, limpe o campo de pesquisa ou amplie a seleção de municípios da Região Metropolitana.</p>
+        </div>`;
+        return;
+      }
+
+      cont.innerHTML = lista.map((op, idx) => {
+        const badgeNivel = op.nivel === 'otima'
+          ? '<span class="tag verde">Prioritário MEI / EPP</span>'
+          : (op.nivel === 'talvez'
+            ? '<span class="tag amarelo">Porte Médio / Viável</span>'
+            : '<span class="tag cinza">Ampla Concorrência</span>');
+
+        const urg = (op.diasRestantes !== null && op.diasRestantes <= 5)
+          ? `<span class="tag vermelho">Encerra em ${op.diasRestantes === 0 ? 'Hoje' : op.diasRestantes + ' dia(s)'}</span>`
+          : '';
+
+        const resumoFormatado = esc(op.texto)
+          .replace(/\n/g, '<br>')
+          .replace(/(^|<br>)([A-ZÇÃÁÉÍÓÚÊÔ /()]+:)/g, '$1<strong>$2</strong>');
+
+        let itensHtml = '';
+        if (op.itensExclusivos && op.itensExclusivos.length > 0) {
+          const lis = op.itensExclusivos.map(it => `<li><strong>Item ${it.numero}:</strong> ${esc(it.descricao)} — <strong>${esc(it.valorFormatado)}</strong></li>`).join('');
+          itensHtml = `<details class="gov-details"><summary>Relação de Itens Exclusivos MEI/ME/EPP (${op.qtdItensExclusivos} item/ns)</summary><ul style="margin:8px 0 0;padding-left:20px;font-size:0.85rem;">${lis}</ul></details>`;
+        }
+
+        const msgWhats = op.msgWhats || op.texto;
+
+        return `
+          <div class="proc-card ${op.nivel}">
+            <div class="proc-header">
+              ${badgeNivel}
+              ${urg}
+              <span class="tag azul">${esc(op.modalidade)}</span>
+              <span class="proc-city">${esc(op.cidade)}</span>
+            </div>
+            <h3 class="proc-title">${esc(op.objetoSimples)}</h3>
+            <div class="proc-meta-grid" style="margin-bottom:4px;">
+              <div class="proc-meta-item">
+                <span>Valor Estimado</span>
+                <strong>${esc(op.valorFormatado)}</strong>
+              </div>
+              <div class="proc-meta-item">
+                <span>Prazo Final</span>
+                <strong>${esc(op.fimFormatado || 'Conforme Edital')}</strong>
+              </div>
+              <div class="proc-meta-item">
+                <span>Órgão Comprador</span>
+                <strong>${esc(op.orgaoAmigavel)}</strong>
+              </div>
+            </div>
+            <div class="proc-actions">
+              <button type="button" class="btn-info-toggle" onclick="togglePainel('info-op-${idx}', this)">
+                <span class="icon-i">i</span> Mais informações e explicação
+              </button>
+              <button type="button" class="btn-gov green" onclick="copiarWhats('w-${idx}', this)">Copiar Mensagem WhatsApp</button>
+              <a class="btn-gov secondary" href="${esc(op.link)}" target="_blank" rel="noopener">Abrir Edital</a>
+              <textarea id="w-${idx}" class="hidden">${esc(msgWhats)}</textarea>
+            </div>
+            <div id="info-op-${idx}" class="proc-extra-panel hidden">
+              <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;font-size:0.8rem;color:var(--gov-gray-500);">
+                <span><strong>Regime de Entrega:</strong> ${op.srp ? 'Sistema de Registro de Preços (Entrega parcelada por 12 meses)' : 'Contratação Ordinária'}</span>
+                <span class="proc-id">Protocolo PNCP: ${esc(op.id)}</span>
+              </div>
+              <div class="proc-summary">${resumoFormatado}</div>
+              ${itensHtml}
+              <details class="gov-details">
+                <summary>Ver texto completo da mensagem de WhatsApp</summary>
+                <pre class="whats-pre">${esc(msgWhats)}</pre>
+              </details>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function togglePainel(id, btn) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const oculto = el.classList.toggle('hidden');
+      if (btn && id.startsWith('info-op-')) {
+        btn.innerHTML = oculto
+          ? '<span class="icon-i">i</span> Mais informações e explicação'
+          : '<span class="icon-i">i</span> Ocultar informações';
+      }
+      if (btn && id.startsWith('info-emp-')) {
+        btn.innerHTML = oculto
+          ? '<span class="icon-i">i</span> Detalhes'
+          : '<span class="icon-i">i</span> Ocultar';
+      }
+    }
+
+    function copiarWhats(id, btn) {
+      const txt = document.getElementById(id).value;
+      navigator.clipboard.writeText(txt);
+      const original = btn.innerHTML;
+      btn.innerHTML = 'Mensagem Copiada';
+      setTimeout(() => btn.innerHTML = original, 2200);
+    }
+
+    async function carregarEmpresas() {
+      const cont = document.getElementById('lista-empresas');
+      cont.innerHTML = '<div class="loader">Processando cruzamento de contratos homologados no PNCP e enquadramento empresarial na Receita Federal...</div>';
+      const cidades = obterCidadesSelecionadas().join(',');
+      try {
+        const r = await fetch(`/api/empresas?cidades=${encodeURIComponent(cidades)}`);
+        const data = await r.json();
+        todasEmpresas = data.empresas || [];
+        renderizarEmpresas();
+      } catch (e) {
+        cont.innerHTML = '<div class="doc-box">Erro ao consultar base de fornecedores.</div>';
+      }
+    }
+
+    let nichoEmpAtual = 'todos';
+
+    function selecionarNichoEmp(nicho, btn) {
+      nichoEmpAtual = nicho;
+      document.querySelectorAll('#nicho-emp-chips .segment-btn').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      renderizarEmpresas();
+    }
+
+    function renderizarEmpresas() {
+      const cont = document.getElementById('lista-empresas');
+      const q = semAcentos(document.getElementById('input-busca-emp').value).trim();
+      const verMei = document.getElementById('chk-porte-mei') ? document.getElementById('chk-porte-mei').checked : true;
+      const verEpp = document.getElementById('chk-porte-epp') ? document.getElementById('chk-porte-epp').checked : true;
+      const verMe = document.getElementById('chk-porte-me') ? document.getElementById('chk-porte-me').checked : true;
+
+      // Calcula totais por porte dentro do filtro de texto/nicho
+      const baseFiltradaTextoNicho = todasEmpresas.filter(e => {
+        if (nichoEmpAtual !== 'todos') {
+          if (!(e.nichos || []).includes(nichoEmpAtual)) return false;
+        }
+        if (q) {
+          const secTxt = (e.cnaesSecundarios || []).join(' ');
+          const alvo = semAcentos(`${e.empresa} ${e.nomeFantasia} ${e.atividade} ${secTxt} ${e.cnaeAnalisado || ''} ${e.cidade} ${e.cnpj} ${e.exemploVenda}`);
+          if (!q.split(/\s+/).every(p => alvo.includes(p))) return false;
+        }
+        return true;
+      });
+
+      const qtdMei = baseFiltradaTextoNicho.filter(e => e.porte === 'MEI').length;
+      const qtdEpp = baseFiltradaTextoNicho.filter(e => e.porte === 'EPP').length;
+      const qtdMe = baseFiltradaTextoNicho.filter(e => e.porte !== 'MEI' && e.porte !== 'EPP').length;
+
+      const lista = baseFiltradaTextoNicho.filter(e => {
+        if (e.porte === 'MEI') return verMei;
+        if (e.porte === 'EPP') return verEpp;
+        return verMe;
+      });
+
+      // Ordena priorizando MEI e EPP no topo, e depois quem tem edital aberto compatível
+      const pesoPorte = { 'MEI': 0, 'EPP': 1, 'ME': 2 };
+      lista.sort((a, b) => {
+        const pa = pesoPorte[a.porte] ?? 2;
+        const pb = pesoPorte[b.porte] ?? 2;
+        if (pa !== pb) return pa - pb;
+        return (b.qtdMatch || 0) - (a.qtdMatch || 0);
+      });
+
+      document.getElementById('kpi-emp-total').textContent = lista.length;
+      document.getElementById('kpi-emp-mei').textContent = qtdMei;
+      document.getElementById('kpi-emp-epp').textContent = qtdEpp;
+      document.getElementById('kpi-emp-me').textContent = qtdMe;
+
+      if (lista.length === 0) {
+        cont.innerHTML = '<div class="doc-box">Nenhum fornecedor localizado para os filtros selecionados. Marque as caixas MEI, EPP ou ME acima.</div>';
+        return;
+      }
+
+      const linhas = lista.map((e, idx) => {
+        const matches = (e.oportunidadesMatch && e.oportunidadesMatch.length > 0)
+          ? e.oportunidadesMatch.map(m => `<div style="margin-bottom:4px;">&bull; ${esc(m)}</div>`).join('')
+          : '<span style="color:var(--gov-gray-500)">Sem processo compatível aberto no momento</span>';
+
+        const msgEmp = e.msgConvite || `Olá, responsável pela ${e.empresa}, gostaríamos de agendar uma conversa sobre oportunidades de compras públicas no seu segmento (${e.atividade}).`;
+
+        const linkWhats = e.telefoneLimpo
+          ? `<a class="btn-gov green" style="padding:6px 11px;font-size:0.78rem;" href="https://wa.me/55${e.telefoneLimpo}?text=${encodeURIComponent(msgEmp)}" target="_blank" rel="noopener">WhatsApp (${esc(e.telefone)})</a>`
+          : `<span style="font-size:0.8rem;color:var(--gov-gray-500)">Sem telefone</span>`;
+
+        const badgeMatch = (e.qtdMatch && e.qtdMatch > 0)
+          ? `<span class="tag verde">${e.qtdMatch} edital(is) compatível(is)</span>`
+          : `<span class="tag cinza">Fornecedor homologado</span>`;
+
+        const tagPorte = e.porte === 'MEI'
+          ? '<span class="tag azul">MEI</span>'
+          : (e.porte === 'EPP'
+            ? '<span class="tag verde">EPP</span>'
+            : '<span class="tag amarelo">ME</span>');
+
+        const cnaeAnalisado = e.cnaeAnalisado || e.atividade || 'Comércio e Serviços';
+        const vocacaoCnae = e.vocacaoCnae || 'Dispensas eletrônicas (Art. 75 da Lei 14.133/2021) e cotas exclusivas para MEI/ME/EPP.';
+        const qtdSec = e.qtdCnaesSecundarios || 0;
+        const badgeSec = qtdSec > 0
+          ? `<span class="tag azul" style="margin-top:4px;">+${qtdSec} CNAE(s) secundário(s) averiguado(s)</span>`
+          : '';
+        const listaSecHtml = (e.cnaesSecundarios && e.cnaesSecundarios.length > 0)
+          ? `<div style="font-size:0.75rem;margin-bottom:6px;color:var(--gov-gray-700);"><strong>CNAEs Secundários averiguados (${qtdSec}):</strong><br>${e.cnaesSecundarios.slice(0, 5).map(c => `&bull; ${esc(c)}`).join('<br>')}</div>`
+          : '';
+
+        return `<tr>
+          <td>
+            <strong>${esc(e.empresa)}</strong>
+            <div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;">${badgeMatch}</div>
+          </td>
+          <td>${tagPorte}</td>
+          <td>${esc(e.cidade)}</td>
+          <td>
+            <div><strong>${esc(cnaeAnalisado)}</strong></div>
+            ${badgeSec}
+            <div style="margin-top:3px;"><small style="color:var(--gov-gray-500)">Forneceu: ${esc(e.exemploVenda ? e.exemploVenda.slice(0, 75) + (e.exemploVenda.length > 75 ? '...' : '') : 'Contrato público')}</small></div>
+          </td>
+          <td style="white-space:nowrap;">
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+              ${linkWhats}
+              <button type="button" class="btn-info-toggle" style="padding:5px 10px;font-size:0.76rem;" onclick="togglePainel('info-emp-${idx}', this)">
+                <span class="icon-i">i</span> Detalhes
+              </button>
+            </div>
+            <div id="info-emp-${idx}" class="hidden" style="margin-top:10px;padding:10px;background:var(--gov-gray-100);border:1px solid var(--gov-gray-200);border-radius:3px;white-space:normal;max-width:480px;">
+              <div style="font-size:0.78rem;margin-bottom:6px;">
+                <strong>CNPJ:</strong> ${esc(e.cnpj)} &nbsp;|&nbsp; <strong>E-mail:</strong> ${esc(e.email || 'Não informado')}<br>
+                <strong>CNAE Principal:</strong> ${esc(e.cnaeCodigo ? e.cnaeCodigo + ' - ' : '')}${esc(e.atividade)}<br>
+                <strong>Último fornecimento público:</strong> ${esc(e.exemploVenda)} (${esc(e.valorContrato)})
+              </div>
+              ${listaSecHtml}
+              <div style="font-size:0.78rem;margin-bottom:8px;padding:7px 9px;background:var(--gov-white);border-left:3px solid var(--gov-blue-warm-vivid-70);border-radius:2px;">
+                <strong>O que mais combina com esse CNAE em licitações:</strong><br>
+                ${esc(vocacaoCnae)}
+              </div>
+              <div style="font-size:0.78rem;margin-bottom:8px;">
+                <strong>Editais abertos compatíveis com o CNAE:</strong><br>${matches}
+              </div>
+              <div style="font-size:0.74rem;margin-bottom:8px;padding:7px 9px;background:var(--gov-white);border:1px dashed var(--gov-gray-200);border-radius:2px;white-space:pre-wrap;max-height:160px;overflow-y:auto;"><strong>Prévia da mensagem do WhatsApp:</strong>
+${esc(msgEmp)}</div>
+              <button type="button" class="btn-gov secondary" style="padding:4px 9px;font-size:0.74rem;" onclick="copiarWhats('we-${idx}', this)">Copiar Convite de Conversa</button>
+              <textarea id="we-${idx}" class="hidden">${esc(msgEmp)}</textarea>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+
+      cont.innerHTML = `<div class="gov-table-wrap">
+        <table class="gov-table">
+          <thead>
+            <tr>
+              <th>Empresa</th>
+              <th>Porte</th>
+              <th>Município</th>
+              <th>Ramo de Atuação (CNAE)</th>
+              <th>Contato e Informações</th>
+            </tr>
+          </thead>
+          <tbody>${linhas}</tbody>
+        </table>
+      </div>`;
+    }
+
+    carregarLicitacoes(false);
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Ignorar caches temporários e relatórios locais gerados em execução
+saida/cache_web/
+cache/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
